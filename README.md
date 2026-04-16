@@ -36,6 +36,7 @@ python main.py
 ## 🧩 Funcionalidades
 
 ### Estoque
+
 - Cadastrar produto (código auto-incrementado)
 - Listar produtos em tabela formatada
 - Remover produto por código
@@ -43,6 +44,7 @@ python main.py
 - Localizar por nome ou código
 
 ### Carrinho
+
 - Adicionar produto (validando estoque)
 - Listar itens com subtotais e total
 - Remover quantidade parcial ou total
@@ -50,17 +52,18 @@ python main.py
 - Finalizar compra (desconta do estoque)
 
 ### Pagamento
+
 - **Crédito** — parcelamento com juros acima de 6x
 - **Débito** — à vista
 - **Dinheiro** — calcula troco
 
 ## 🏗️ Arquitetura
 
-| Camada | Responsabilidade |
-|--------|-----------------|
-| `models/` | Classes de dados (`Produto`, `ItemCarrinho`) |
+| Camada      | Responsabilidade                                       |
+| ----------- | ------------------------------------------------------ |
+| `models/`   | Classes de dados (`Produto`, `ItemCarrinho`)           |
 | `services/` | Lógica de negócio (`Estoque`, `Carrinho`, `Pagamento`) |
-| `ui/` | Interface com o usuário (`SistemaDeCaixa`, menus) |
+| `ui/`       | Interface com o usuário (`SistemaDeCaixa`, menus)      |
 
 ## 👤 Autor
 

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import os
 
-from src.services import Estoque, Carrinho, Pagamento
+from src.services import Carrinho, Estoque, Pagamento
 
 
 def limpar_tela() -> None:
@@ -283,7 +283,7 @@ class SistemaDeCaixa:
             print("╠══════════════════════════╣")
             print("║  1 - Acessar estoque     ║")
             print("║  2 - Acessar carrinho    ║")
-            print("║  0 - Sair               ║")
+            print("║  0 - Sair                ║")
             print("╚══════════════════════════╝")
 
             try:
