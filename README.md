@@ -1,6 +1,10 @@
 # 🛒 Sistema de Caixa — Python POO
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://caixasys.streamlit.app/)
+
 Sistema de caixa com gerenciamento de **estoque** e **carrinho de compras**, desenvolvido em Python puro com Programação Orientada a Objetos.
+
+> 🌐 **Demo ao vivo:** [caixasys.streamlit.app](https://caixasys.streamlit.app/)
 
 ## 📁 Estrutura do Projeto
 
@@ -23,11 +27,22 @@ Sistema-de-caixa---REMAKE/
 │   └── ui/
 │       ├── __init__.py
 │       ├── menu.py            # Interface de terminal (menus)
-│       └── web.py             # Interface web em Streamlit
+│       └── web/
+│           ├── __init__.py
+│           ├── state.py       # Estado da sessão Streamlit
+│           ├── utils.py       # Utilitários (formatação)
+│           ├── caixa.py       # Página Caixa (POS)
+│           └── edicao.py      # Página Estoque (CRUD)
 └── Sistema_de_caixa_v2.ipynb  # Versão antiga (Jupyter Notebook)
 ```
 
 ## ▶️ Como executar
+
+### Deploy online
+
+Acesse diretamente em **[caixasys.streamlit.app](https://caixasys.streamlit.app/)** — sem instalar nada.
+
+### Localmente
 
 Antes de rodar, instale as dependências:
 
@@ -35,13 +50,13 @@ Antes de rodar, instale as dependências:
 pip install -r requirements.txt
 ```
 
-### Interface web
+#### Interface web
 
 ```bash
 streamlit run streamlit_app.py
 ```
 
-### Interface de terminal
+#### Interface de terminal
 
 ```bash
 python main.py
