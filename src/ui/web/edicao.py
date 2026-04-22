@@ -4,7 +4,6 @@ import streamlit as st
 
 from src.ui.web.utils import fmt_moeda
 
-
 # ── estilos ────────────────────────────────────────────────────────────────────
 
 def _estilos() -> None:
@@ -66,13 +65,12 @@ def _estilos() -> None:
             font-weight: 900 !important;
         }
 
-        /* ── form containers ────────────────────────────── */
+        /* ── form containers (sem caixa pesada) ──────────── */
         [data-testid="stForm"] {
             background: white !important;
             border: 1.5px solid #d4e0d0 !important;
-            border-radius: 18px !important;
-            padding: 1.4rem 1.6rem 0.6rem !important;
-            box-shadow: 0 4px 18px rgba(27,67,50,0.06) !important;
+            border-radius: 16px !important;
+            padding: 1.2rem 1.2rem 0.6rem !important;
         }
 
         /* ── input fields ───────────────────────────────── */
@@ -176,12 +174,12 @@ def pagina_edicao() -> None:
 
     st.divider()
 
-    col_novo, col_editar = st.columns(2, gap="large")
+    col_novo, col_editar = st.columns([1, 1], gap="medium")
 
     # ── cadastro ──────────────────────────────────────────
     with col_novo:
         st.markdown("### Novo produto")
-        with st.form("form_novo_produto", clear_on_submit=True):
+        with st.form("form_novo_produto", clear_on_submit=True, enter_to_submit=False):
             nome = st.text_input("Nome do produto")
             qty = st.number_input("Quantidade inicial", min_value=0, step=1, value=0)
             preco = st.number_input(

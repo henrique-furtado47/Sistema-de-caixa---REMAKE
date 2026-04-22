@@ -230,7 +230,7 @@ def _tela_selecao() -> None:
     estoque = st.session_state.estoque
     carrinho = st.session_state.carrinho
 
-    col_prod, col_cart = st.columns([3, 2], gap="large")
+    col_prod, col_cart = st.columns([5, 3], gap="large")
 
     with col_prod:
         st.markdown("#### Produtos")
