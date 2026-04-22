@@ -1,4 +1,24 @@
-from src.ui.web import renderizar_interface_web
+from __future__ import annotations
 
-if __name__ == "__main__":
-    renderizar_interface_web()
+import streamlit as st
+
+from src.ui.web.caixa import pagina_caixa
+from src.ui.web.edicao import pagina_edicao
+from src.ui.web.state import inicializar_estado
+
+st.set_page_config(
+    page_title="Sistema de Caixa",
+    page_icon="🛒",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
+inicializar_estado()
+
+pg = st.navigation(
+    [
+        st.Page(pagina_caixa, title="Caixa", icon="🛒", default=True),
+        st.Page(pagina_edicao, title="Estoque", icon="📦"),
+    ],
+)
+pg.run()
