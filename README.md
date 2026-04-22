@@ -6,6 +6,7 @@ Sistema de caixa com gerenciamento de **estoque** e **carrinho de compras**, des
 
 ```
 Sistema-de-caixa---REMAKE/
+├── streamlit_app.py           # Ponto de entrada da interface web
 ├── main.py                    # Ponto de entrada
 ├── README.md
 ├── src/
@@ -21,11 +22,26 @@ Sistema-de-caixa---REMAKE/
 │   │   └── pagamento.py       # Lógica de pagamento
 │   └── ui/
 │       ├── __init__.py
-│       └── menu.py            # Interface de terminal (menus)
+│       ├── menu.py            # Interface de terminal (menus)
+│       └── web.py             # Interface web em Streamlit
 └── Sistema_de_caixa_v2.ipynb  # Versão antiga (Jupyter Notebook)
 ```
 
 ## ▶️ Como executar
+
+Antes de rodar, instale as dependências:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Interface web
+
+```bash
+streamlit run streamlit_app.py
+```
+
+### Interface de terminal
 
 ```bash
 python main.py
@@ -56,6 +72,14 @@ python main.py
 - **Crédito** — parcelamento com juros acima de 6x
 - **Débito** — à vista
 - **Dinheiro** — calcula troco
+
+### Interface web (Streamlit)
+
+- Painel com métricas de operação e alerta de baixo estoque
+- Cadastro, edição e remoção de produtos na mesma tela
+- Carrinho com inclusão, ajuste parcial e limpeza rápida
+- Fechamento da venda com crédito, débito ou dinheiro
+- Resumo da última venda concluída na sessão
 
 ## 🏗️ Arquitetura
 
