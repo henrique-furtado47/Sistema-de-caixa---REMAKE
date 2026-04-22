@@ -140,6 +140,12 @@ def pagina_edicao() -> None:
     _estilos()
     st.markdown("## 📦 Gestão de Estoque")
 
+    # exibe e limpa mensagem de feedback de operações anteriores
+    flash = st.session_state.pop("estoque_flash", None)
+    if flash:
+        func = st.success if flash["tipo"] == "ok" else st.error
+        func(flash["msg"])
+
     estoque = st.session_state.estoque
     carrinho = st.session_state.carrinho
 
@@ -191,7 +197,11 @@ def pagina_edicao() -> None:
             if cadastrar:
                 try:
                     p = estoque.cadastrar(nome, int(qty), float(preco))
-                    st.success(f"Produto **{p.nome}** cadastrado (código `{p.codigo}`).")
+                    st.session_state["estoque_flash"] = {
+                        "tipo": "ok",
+                        "msg": f"Produto **{p.nome}** cadastrado (código `{p.codigo}`).",
+                    }
+                    st.rerun()
                 except ValueError as exc:
                     st.error(str(exc))
 
@@ -248,7 +258,11 @@ def pagina_edicao() -> None:
                             quantidade=int(nova_qty),
                             preco=float(novo_preco),
                         )
-                        st.success("Produto atualizado com sucesso.")
+                        st.session_state["estoque_flash"] = {
+                            "tipo": "ok",
+                            "msg": "Produto atualizado com sucesso.",
+                        }
+                        st.rerun()
                     except ValueError as exc:
                         st.error(str(exc))
 
@@ -259,7 +273,10 @@ def pagina_edicao() -> None:
                             "Remova-o do carrinho no Caixa antes de excluir."
                         )
                     elif estoque.remover(codigo):
-                        st.success("Produto removido.")
+                        st.session_state["estoque_flash"] = {
+                            "tipo": "ok",
+                            "msg": "Produto removido com sucesso.",
+                        }
                         st.rerun()
                     else:
                         st.error("Produto não encontrado.")
