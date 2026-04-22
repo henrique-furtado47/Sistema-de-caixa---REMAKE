@@ -24,17 +24,45 @@ class Carrinho:
         return sum(item.subtotal for item in self._itens)
 
     @property
+    def itens(self) -> tuple[ItemCarrinho, ...]:
+        return tuple(self._itens)
+
+    @property
+    def quantidade_total(self) -> int:
+        return sum(item.quantidade for item in self._itens)
+
+    @property
     def vazio(self) -> bool:
         return len(self._itens) == 0
+
+    def quantidade_do_produto(self, codigo: int) -> int:
+        item = self._buscar_item(codigo)
+        return 0 if item is None else item.quantidade
+
+    def contem_produto(self, codigo: int) -> bool:
+        return self._buscar_item(codigo) is not None
+
+    def validar_estoque(self) -> str | None:
+        for item in self._itens:
+            if item.quantidade > item.produto.quantidade:
+                return (
+                    f"Estoque insuficiente para '{item.produto.nome}'. "
+                    f"Disponível: {item.produto.quantidade}."
+                )
+        return None
 
     # ── ações ──────────────────────────────────────────────
 
     def adicionar(self, produto: Produto, quantidade: int) -> str:
         """Adiciona produto ao carrinho. Retorna mensagem de status."""
-        if quantidade > produto.quantidade:
-            return "Quantidade insuficiente no estoque!"
+        if quantidade <= 0:
+            return "Quantidade deve ser maior que zero."
 
         item_existente = self._buscar_item(produto.codigo)
+        quantidade_atual = 0 if item_existente is None else item_existente.quantidade
+        if quantidade_atual + quantidade > produto.quantidade:
+            return "Quantidade insuficiente no estoque!"
+
         if item_existente:
             item_existente.quantidade += quantidade
         else:
@@ -42,6 +70,9 @@ class Carrinho:
         return "Produto adicionado ao carrinho!"
 
     def remover(self, codigo: int, quantidade: int) -> str:
+        if quantidade <= 0:
+            return "Quantidade deve ser maior que zero."
+
         item = self._buscar_item(codigo)
         if item is None:
             return "Produto não encontrado no carrinho."
@@ -72,6 +103,10 @@ class Carrinho:
 
     def finalizar(self) -> list[ItemCarrinho]:
         """Retorna os itens, desconta do estoque e esvazia o carrinho."""
+        erro_estoque = self.validar_estoque()
+        if erro_estoque is not None:
+            raise ValueError(erro_estoque)
+
         itens = list(self._itens)
         for item in itens:
             item.produto.quantidade -= item.quantidade

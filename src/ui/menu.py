@@ -109,7 +109,13 @@ class SistemaDeCaixa:
         except ValueError:
             print("Valores inválidos!")
             return
-        produto = self.estoque.cadastrar(nome, quantidade, preco)
+
+        try:
+            produto = self.estoque.cadastrar(nome, quantidade, preco)
+        except ValueError as exc:
+            print(f"✘ {exc}")
+            return
+
         print(f"✔ Produto '{produto.nome}' cadastrado com código {produto.codigo}.")
 
     def _listar_estoque(self) -> None:
@@ -123,6 +129,11 @@ class SistemaDeCaixa:
         except ValueError:
             print("Código inválido!")
             return
+
+        if self.carrinho.contem_produto(codigo):
+            print("✘ Remova o produto do carrinho antes de excluí-lo do estoque.")
+            return
+
         if self.estoque.remover(codigo):
             print("✔ Produto removido com sucesso!")
         else:
@@ -147,17 +158,24 @@ class SistemaDeCaixa:
             print("Opção inválida!")
             return
 
-        if opcao == 1:
-            produto.nome = input("Novo nome: ")
-        elif opcao == 2:
-            produto.quantidade = int(input("Nova quantidade: "))
-        elif opcao == 3:
-            produto.preco = float(input("Novo preço: "))
-        elif opcao == 0:
+        try:
+            if opcao == 1:
+                self.estoque.atualizar(codigo, nome=input("Novo nome: "))
+            elif opcao == 2:
+                nova_quantidade = int(input("Nova quantidade: "))
+                self.estoque.atualizar(codigo, quantidade=nova_quantidade)
+            elif opcao == 3:
+                novo_preco = float(input("Novo preço: "))
+                self.estoque.atualizar(codigo, preco=novo_preco)
+            elif opcao == 0:
+                return
+            else:
+                print("Opção inválida!")
+                return
+        except ValueError as exc:
+            print(f"✘ {exc}")
             return
-        else:
-            print("Opção inválida!")
-            return
+
         print("✔ Produto atualizado!")
 
     def _localizar_produto(self) -> None:
@@ -173,7 +191,11 @@ class SistemaDeCaixa:
             nome = input("Nome: ")
             produto = self.estoque.buscar_por_nome(nome)
         elif opcao == 2:
-            codigo = int(input("Código: "))
+            try:
+                codigo = int(input("Código: "))
+            except ValueError:
+                print("Código inválido!")
+                return
             produto = self.estoque.buscar_por_codigo(codigo)
         else:
             print("Opção inválida!")
@@ -238,14 +260,27 @@ class SistemaDeCaixa:
             print("Carrinho está vazio!")
             return
 
+        erro_estoque = self.carrinho.validar_estoque()
+        if erro_estoque is not None:
+            print(f"✘ {erro_estoque}")
+            return
+
         total = self.carrinho.total
         limpar_tela()
         print(f"\n  Total da compra: R${total:.2f}\n")
-        self._processar_pagamento(total)
-        self.carrinho.finalizar()
+
+        if not self._processar_pagamento(total):
+            return
+
+        try:
+            self.carrinho.finalizar()
+        except ValueError as exc:
+            print(f"✘ {exc}")
+            return
+
         print("\n✔ Compra finalizada com sucesso!")
 
-    def _processar_pagamento(self, total: float) -> None:
+    def _processar_pagamento(self, total: float) -> bool:
         print("Método de pagamento:")
         print("1 - Crédito  |  2 - Débito  |  3 - Dinheiro")
 
@@ -253,26 +288,38 @@ class SistemaDeCaixa:
             opcao = int(input("Opção: "))
         except ValueError:
             print("Opção inválida!")
-            return
+            return False
 
         if opcao == 1:
-            parcelas = int(input("Número de parcelas: "))
-            valor = Pagamento.calcular_parcela(total, parcelas)
-            print(f"{parcelas}x de R${valor:.2f}")
+            try:
+                parcelas = int(input("Número de parcelas: "))
+                valor = Pagamento.calcular_parcela(total, parcelas)
+            except ValueError as exc:
+                print(f"✘ {exc}")
+                return False
+
+            total_credito = Pagamento.calcular_total_credito(total, parcelas)
+            print(f"{parcelas}x de R${valor:.2f} | Total: R${total_credito:.2f}")
         elif opcao == 2:
             print(f"Total no débito: R${total:.2f}")
         elif opcao == 3:
-            dinheiro = float(input("Valor recebido: "))
+            try:
+                dinheiro = float(input("Valor recebido: "))
+            except ValueError:
+                print("Valor inválido!")
+                return False
+
             troco = Pagamento.calcular_troco(total, dinheiro)
             if troco is None:
                 print("✘ Valor insuficiente!")
-                return
+                return False
             print(f"Troco: R${troco:.2f}")
         else:
             print("Opção inválida!")
-            return
+            return False
 
         print("✔ Pagamento realizado com sucesso!")
+        return True
 
     # ── loop principal ─────────────────────────────────────
 
