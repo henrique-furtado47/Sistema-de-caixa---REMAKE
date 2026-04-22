@@ -16,138 +16,183 @@ def _estilos() -> None:
     st.markdown(
         """
         <style>
-        /* ── fundo ──────────────────────────────────────── */
-        [data-testid="stAppViewContainer"] {
-            background: #ecf0ea;
-        }
-        [data-testid="stHeader"] { background: transparent; }
-        [data-testid="stSidebarContent"] {
-            background: #1b4332;
-        }
-        [data-testid="stSidebarContent"] * { color: #d8f3dc !important; }
-        .block-container { padding-top: 0 !important; padding-bottom: 2rem; }
+        /* ── layout ─────────────────────────────────────── */
+        [data-testid="stAppViewContainer"] { background: #ecf0ea !important; }
+        [data-testid="stHeader"]           { background: transparent !important; }
+        .block-container { padding-top: 0 !important; padding-bottom: 2rem !important; max-width: 1400px !important; }
 
-        /* ── cabeçalho do caixa ─────────────────────────── */
+        /* ── sidebar ────────────────────────────────────── */
+        section[data-testid="stSidebar"] > div:first-child,
+        [data-testid="stSidebarContent"] {
+            background: #1b4332 !important;
+        }
+        section[data-testid="stSidebar"] span,
+        section[data-testid="stSidebar"] p,
+        section[data-testid="stSidebar"] a,
+        section[data-testid="stSidebar"] div {
+            color: #c8e6cd !important;
+        }
+        section[data-testid="stSidebar"] svg {
+            fill: #c8e6cd !important;
+        }
+        section[data-testid="stSidebar"] [data-testid="stSidebarNavLink"] {
+            border-radius: 10px !important;
+            padding: 0.4rem 0.7rem !important;
+        }
+        section[data-testid="stSidebar"] [data-testid="stSidebarNavLink"]:hover {
+            background: rgba(255,255,255,0.1) !important;
+        }
+        section[data-testid="stSidebar"] [data-testid="stSidebarNavLink"][aria-selected="true"] {
+            background: rgba(255,255,255,0.18) !important;
+        }
+
+        /* ── headings \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+        h1, h2, h3, h4 { color: #1a2e1e !important; }
+
+        /* \u2500\u2500 POS header banner \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
         .pos-header {
             background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
-            color: white;
-            padding: 1rem 1.6rem;
-            border-radius: 0 0 20px 20px;
-            margin-bottom: 1.4rem;
+            padding: 1rem 1.8rem;
+            border-radius: 0 0 22px 22px;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 20px rgba(27, 67, 50, 0.25);
+            box-shadow: 0 6px 24px rgba(27,67,50,0.28);
         }
         .pos-header-title {
-            font-size: 1.35rem;
-            font-weight: 900;
-            letter-spacing: -0.02em;
-        }
-        .pos-header-stats { display: flex; gap: 1.8rem; }
-        .pos-stat { text-align: center; }
-        .pos-stat-val {
             font-size: 1.4rem;
             font-weight: 900;
+            color: white;
+        }
+        .pos-header-stats { display: flex; gap: 2.2rem; }
+        .pos-stat { text-align: center; }
+        .pos-stat-val {
+            font-size: 1.65rem;
+            font-weight: 900;
             color: #b7e4c7;
-            line-height: 1.1;
+            line-height: 1;
         }
         .pos-stat-lbl {
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             color: rgba(255,255,255,0.6);
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
+            margin-top: 0.2rem;
         }
 
-        /* ── botões de produto ──────────────────────────── */
-        [data-testid="baseButton-secondary"] {
-            background: white !important;
-            border: 1px solid rgba(0,0,0,0.09) !important;
+        /* \u2500\u2500 all buttons base \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+        .stButton > button {
             border-radius: 14px !important;
-            color: #1a1a2e !important;
-            font-size: 0.88rem !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
-            transition: all 0.13s ease !important;
-            min-height: 92px !important;
-            white-space: pre-line !important;
-            line-height: 1.55 !important;
+            font-weight: 700 !important;
+            transition: border-color 0.12s ease, box-shadow 0.12s ease, transform 0.12s ease !important;
         }
-        [data-testid="baseButton-secondary"]:hover:not(:disabled) {
+
+        /* secondary \u2192 white product cards */
+        .stButton > button[kind="secondary"] {
+            background: white !important;
+            border: 1.5px solid #d4e0d0 !important;
+            color: #1a2e1e !important;
+            padding: 0.8rem 0.7rem !important;
+            line-height: 1.65 !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+        }
+        .stButton > button[kind="secondary"]:hover:not(:disabled) {
             border-color: #2d6a4f !important;
-            box-shadow: 0 6px 18px rgba(45,106,79,0.18) !important;
+            box-shadow: 0 6px 20px rgba(45,106,79,0.18) !important;
             transform: translateY(-2px) !important;
         }
-        [data-testid="baseButton-secondary"]:disabled {
-            opacity: 0.40 !important;
+        .stButton > button[kind="secondary"]:disabled {
+            background: #f4f4f4 !important;
+            border-color: #e0e0e0 !important;
+            color: #aaa !important;
+            opacity: 0.6 !important;
+            transform: none !important;
         }
 
-        /* ── botão primário (Finalizar / Confirmar) ─────── */
-        [data-testid="baseButton-primary"] {
-            background: linear-gradient(135deg, #2d6a4f, #1b4332) !important;
-            border: none !important;
-            border-radius: 14px !important;
-            color: white !important;
-            font-weight: 800 !important;
-            font-size: 1rem !important;
+        /* primary \u2192 green (cor definida pelo config.toml, apenas forma aqui) */
+        .stButton > button[kind="primary"] {
             min-height: 3.2rem !important;
+            font-size: 1rem !important;
             letter-spacing: 0.01em !important;
         }
-        [data-testid="baseButton-primary"]:hover:not(:disabled) {
-            filter: brightness(1.08) !important;
-            box-shadow: 0 6px 20px rgba(27,67,50,0.3) !important;
-        }
 
-        /* ── métricas ───────────────────────────────────── */
+        /* \u2500\u2500 metrics \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
         [data-testid="stMetric"] {
-            background: white;
-            border: 1px solid rgba(0,0,0,0.08);
-            border-radius: 16px;
-            padding: 0.85rem 1rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: white !important;
+            border: 1.5px solid #d4e0d0 !important;
+            border-radius: 16px !important;
+            padding: 0.9rem 1rem !important;
+            box-shadow: 0 2px 8px rgba(27,67,50,0.06) !important;
         }
-        [data-testid="stMetricValue"] {
+        [data-testid="stMetricLabel"],
+        [data-testid="stMetricLabel"] * {
+            color: #5d7a63 !important;
+            font-size: 0.77rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+        }
+        [data-testid="stMetricValue"],
+        [data-testid="stMetricValue"] * {
             color: #1b4332 !important;
             font-weight: 900 !important;
         }
 
-        /* ── carrinho vazio ─────────────────────────────── */
-        .cart-vazio {
-            text-align: center;
-            color: #adb5bd;
-            padding: 3.5rem 1rem;
-            font-size: 1.05rem;
-            line-height: 2;
+        /* \u2500\u2500 widget labels \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+        label, [data-testid="stWidgetLabel"] p {
+            color: #374a3f !important;
+            font-weight: 600 !important;
         }
 
-        /* ── recibo (tela de pagamento) ─────────────────── */
+        /* \u2500\u2500 number input \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+        .stNumberInput > div > div > input {
+            background: #f5f9f5 !important;
+            color: #1a2e1e !important;
+            border: 1.5px solid #c4d4c0 !important;
+            border-radius: 10px !important;
+        }
+
+        /* \u2500\u2500 cart empty placeholder \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+        .cart-vazio {
+            text-align: center;
+            color: #8fa896;
+            padding: 3rem 1rem;
+            font-size: 1rem;
+            line-height: 2.2;
+        }
+
+        /* \u2500\u2500 receipt lines \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
         .recibo-item {
             display: flex;
             justify-content: space-between;
-            padding: 0.35rem 0;
-            border-bottom: 1px dashed rgba(0,0,0,0.08);
-            font-size: 0.92rem;
+            padding: 0.4rem 0;
+            border-bottom: 1px dashed #d4e0d0;
+            font-size: 0.9rem;
+            color: #374a3f;
         }
         .recibo-total {
             display: flex;
             justify-content: space-between;
-            padding: 0.6rem 0 0;
+            padding: 0.7rem 0 0;
             font-weight: 900;
             font-size: 1.1rem;
             color: #1b4332;
         }
 
-        /* ── tela de sucesso ─────────────────────────────── */
-        .success-wrap {
-            text-align: center;
-            padding: 1.5rem 0 2rem;
-        }
-        .success-icon { font-size: 4.5rem; }
+        /* \u2500\u2500 success screen \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+        .success-wrap { text-align: center; padding: 1.5rem 0 2rem; }
+        .success-icon { font-size: 4.5rem; line-height: 1; }
         .success-title {
             font-size: 2rem;
             font-weight: 900;
             color: #1b4332;
-            margin: 0.4rem 0 0;
+            margin-top: 0.5rem;
         }
+
+        /* \u2500\u2500 dividers & alerts \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+        hr { border-color: #d4e0d0 !important; }
+        [data-testid="stAlert"] { border-radius: 12px !important; }
         </style>
         """,
         unsafe_allow_html=True,

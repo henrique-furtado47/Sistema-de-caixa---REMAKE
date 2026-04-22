@@ -11,44 +11,125 @@ def _estilos() -> None:
     st.markdown(
         """
         <style>
-        [data-testid="stAppViewContainer"] { background: #f4f6f4; }
-        [data-testid="stHeader"] { background: transparent; }
-        [data-testid="stSidebarContent"] { background: #1b4332; }
-        [data-testid="stSidebarContent"] * { color: #d8f3dc !important; }
-        .block-container { padding-top: 1.6rem; padding-bottom: 2rem; }
+        /* ── layout ─────────────────────────────────────── */
+        [data-testid="stAppViewContainer"] { background: #f0f4f0 !important; }
+        [data-testid="stHeader"]           { background: transparent !important; }
+        .block-container { padding-top: 1.8rem !important; padding-bottom: 2.5rem !important; }
 
-        [data-testid="baseButton-primary"] {
-            background: linear-gradient(135deg, #2d6a4f, #1b4332) !important;
-            border: none !important;
-            border-radius: 12px !important;
-            color: white !important;
-            font-weight: 700 !important;
-            min-height: 2.8rem !important;
+        /* ── sidebar ────────────────────────────────────── */
+        section[data-testid="stSidebar"] > div:first-child,
+        [data-testid="stSidebarContent"] {
+            background: #1b4332 !important;
         }
-        [data-testid="baseButton-secondary"] {
-            background: white !important;
-            border: 1px solid rgba(0,0,0,0.1) !important;
-            border-radius: 12px !important;
-            color: #1a1a2e !important;
-            min-height: 2.8rem !important;
+        section[data-testid="stSidebar"] span,
+        section[data-testid="stSidebar"] p,
+        section[data-testid="stSidebar"] a,
+        section[data-testid="stSidebar"] div {
+            color: #c8e6cd !important;
         }
+        section[data-testid="stSidebar"] svg {
+            fill: #c8e6cd !important;
+        }
+        section[data-testid="stSidebar"] [data-testid="stSidebarNavLink"] {
+            border-radius: 10px !important;
+            padding: 0.4rem 0.7rem !important;
+        }
+        section[data-testid="stSidebar"] [data-testid="stSidebarNavLink"]:hover {
+            background: rgba(255,255,255,0.1) !important;
+        }
+        section[data-testid="stSidebar"] [data-testid="stSidebarNavLink"][aria-selected="true"] {
+            background: rgba(255,255,255,0.18) !important;
+        }
+
+        /* ── headings ───────────────────────────────────── */
+        h1, h2, h3, h4 { color: #1a2e1e !important; }
+
+        /* ── metric cards ───────────────────────────────── */
         [data-testid="stMetric"] {
-            background: white;
-            border: 1px solid rgba(0,0,0,0.08);
-            border-radius: 16px;
-            padding: 0.9rem 1rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: white !important;
+            border: 1.5px solid #d4e0d0 !important;
+            border-radius: 18px !important;
+            padding: 1.2rem 1.4rem !important;
+            box-shadow: 0 4px 18px rgba(27,67,50,0.07) !important;
         }
-        [data-testid="stMetricValue"] {
+        [data-testid="stMetricLabel"],
+        [data-testid="stMetricLabel"] * {
+            color: #5d7a63 !important;
+            font-size: 0.77rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+        }
+        [data-testid="stMetricValue"],
+        [data-testid="stMetricValue"] * {
             color: #1b4332 !important;
             font-weight: 900 !important;
         }
-        [data-testid="stDataFrame"] {
-            border: 1px solid rgba(0,0,0,0.08);
-            border-radius: 16px;
-            overflow: hidden;
-            background: white;
+
+        /* ── form containers ────────────────────────────── */
+        [data-testid="stForm"] {
+            background: white !important;
+            border: 1.5px solid #d4e0d0 !important;
+            border-radius: 18px !important;
+            padding: 1.4rem 1.6rem 0.6rem !important;
+            box-shadow: 0 4px 18px rgba(27,67,50,0.06) !important;
         }
+
+        /* ── input fields ───────────────────────────────── */
+        .stTextInput  > div > div > input,
+        .stNumberInput > div > div > input {
+            background: #f5f9f5 !important;
+            color: #1a2e1e !important;
+            border: 1.5px solid #c4d4c0 !important;
+            border-radius: 10px !important;
+        }
+        .stTextInput  > div > div > input:focus,
+        .stNumberInput > div > div > input:focus {
+            border-color: #2d6a4f !important;
+            box-shadow: 0 0 0 3px rgba(45,106,79,0.12) !important;
+            outline: none !important;
+        }
+
+        /* ── widget & form labels ───────────────────────── */
+        label,
+        [data-testid="stWidgetLabel"] p {
+            color: #374a3f !important;
+            font-weight: 600 !important;
+        }
+
+        /* ── selectbox ──────────────────────────────────── */
+        .stSelectbox > div > div {
+            background: #f5f9f5 !important;
+            border: 1.5px solid #c4d4c0 !important;
+            border-radius: 10px !important;
+            color: #1a2e1e !important;
+        }
+
+        /* ── buttons ────────────────────────────────────── */
+        .stButton > button,
+        .stFormSubmitButton > button {
+            border-radius: 12px !important;
+            min-height: 2.8rem !important;
+            font-weight: 700 !important;
+            border: 1.5px solid #d4e0d0 !important;
+        }
+        .stButton > button[kind="secondary"],
+        .stFormSubmitButton > button[kind="secondary"] {
+            background: white !important;
+            color: #1a2e1e !important;
+        }
+
+        /* ── DataFrames ─────────────────────────────────── */
+        [data-testid="stDataFrame"] {
+            border: 1.5px solid #d4e0d0 !important;
+            border-radius: 16px !important;
+            overflow: hidden !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+        }
+
+        /* ── dividers & alerts ──────────────────────────── */
+        hr { border-color: #d4e0d0 !important; margin: 1.5rem 0 !important; }
+        [data-testid="stAlert"] { border-radius: 12px !important; }
         </style>
         """,
         unsafe_allow_html=True,
