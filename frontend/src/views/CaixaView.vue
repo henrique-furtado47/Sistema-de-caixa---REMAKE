@@ -1,8 +1,8 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { produtosApi, carrinhoApi } from '../api'
-import ProdutoCard from '../components/ProdutoCard.vue'
+import { computed, onMounted, ref } from 'vue'
+import { carrinhoApi, produtosApi } from '../api'
 import CarrinhoSidebar from '../components/CarrinhoSidebar.vue'
+import ProdutoCard from '../components/ProdutoCard.vue'
 
 const produtos = ref([])
 const carrinho = ref({ itens: [], total: 0, quantidade_total: 0, vazio: true })

@@ -63,18 +63,18 @@ python main.py
 
 ## 🌐 Endpoints da API
 
-| Método | Rota | Descrição |
-|---|---|---|
-| GET | `/api/produtos` | Listar produtos |
-| POST | `/api/produtos` | Cadastrar produto |
-| PUT | `/api/produtos/{codigo}` | Atualizar produto |
-| DELETE | `/api/produtos/{codigo}` | Remover produto |
-| GET | `/api/carrinho` | Ver carrinho |
-| POST | `/api/carrinho/adicionar` | Adicionar item |
-| POST | `/api/carrinho/remover` | Remover item |
-| DELETE | `/api/carrinho` | Limpar carrinho |
-| POST | `/api/pagamento/calcular` | Prévia de pagamento |
-| POST | `/api/pagamento/finalizar` | Finalizar compra |
+| Método | Rota                       | Descrição           |
+| ------ | -------------------------- | ------------------- |
+| GET    | `/api/produtos`            | Listar produtos     |
+| POST   | `/api/produtos`            | Cadastrar produto   |
+| PUT    | `/api/produtos/{codigo}`   | Atualizar produto   |
+| DELETE | `/api/produtos/{codigo}`   | Remover produto     |
+| GET    | `/api/carrinho`            | Ver carrinho        |
+| POST   | `/api/carrinho/adicionar`  | Adicionar item      |
+| POST   | `/api/carrinho/remover`    | Remover item        |
+| DELETE | `/api/carrinho`            | Limpar carrinho     |
+| POST   | `/api/pagamento/calcular`  | Prévia de pagamento |
+| POST   | `/api/pagamento/finalizar` | Finalizar compra    |
 
 ## 🧩 Funcionalidades
 
@@ -84,17 +84,16 @@ python main.py
 
 ## 🏗️ Arquitetura
 
-| Camada | Responsabilidade |
-|---|---|
-| `src/models/` | Classes de dados (`Produto`, `ItemCarrinho`) |
+| Camada          | Responsabilidade                                       |
+| --------------- | ------------------------------------------------------ |
+| `src/models/`   | Classes de dados (`Produto`, `ItemCarrinho`)           |
 | `src/services/` | Lógica de negócio (`Estoque`, `Carrinho`, `Pagamento`) |
-| `api/` | FastAPI: schemas, rotas REST, estado in-memory |
-| `frontend/` | Vue 3 SPA: views, componentes, cliente axios |
+| `api/`          | FastAPI: schemas, rotas REST, estado in-memory         |
+| `frontend/`     | Vue 3 SPA: views, componentes, cliente axios           |
 
 ## 👤 Autor
 
 **Henrique Furtado** — [@henrique-furtado47](https://github.com/henrique-furtado47)
-
 
 ## 📁 Estrutura do Projeto
 

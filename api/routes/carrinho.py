@@ -4,13 +4,8 @@ from __future__ import annotations
 
 from fastapi import APIRouter, HTTPException
 
-from api.schemas import (
-    AdicionarItemRequest,
-    CarrinhoOut,
-    ItemCarrinhoOut,
-    MensagemOut,
-    RemoverItemRequest,
-)
+from api.schemas import (AdicionarItemRequest, CarrinhoOut, ItemCarrinhoOut,
+                         MensagemOut, RemoverItemRequest)
 from api.state import carrinho, estoque
 
 router = APIRouter(prefix="/carrinho", tags=["carrinho"])

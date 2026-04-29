@@ -1,6 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { produtosApi } from '../api'
+import { ref } from 'vue'
 
 const emit = defineEmits(['adicionado'])
 
